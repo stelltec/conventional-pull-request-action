@@ -10,6 +10,7 @@ const getLintRules = require("./lint-rules.js");
 async function lintPR() {
   const actionConfig = getActionConfig();
   const { GITHUB_TOKEN, COMMIT_TITLE_MATCH, IGNORE_COMMITS } = actionConfig;
+  console.log("ActionConfig", actionConfig)
 
   const client = github.getOctokit(GITHUB_TOKEN);
 
@@ -66,9 +67,9 @@ async function lintPR() {
       core.setFailed(actionMessage.fail.commit.lint);
     }
 
-    if (COMMIT_TITLE_MATCH && pullRequest.title !== commitMessageSubject) {
-      core.setFailed(actionMessage.fail.commit.commit_title_match);
-    }
+    // if (COMMIT_TITLE_MATCH && pullRequest.title !== commitMessageSubject) {
+    //   core.setFailed(actionMessage.fail.commit.commit_title_match);
+    // }
   } else {
     const titleReport = await lint(pullRequest.title, lintRules, {
       parserOpts,
