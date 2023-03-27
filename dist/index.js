@@ -36451,9 +36451,10 @@ async function lintPR() {
       core.setFailed(actionMessage.fail.commit.lint);
     }
 
-    if (COMMIT_TITLE_MATCH && pullRequest.title !== commitMessageSubject) {
-      core.setFailed(actionMessage.fail.commit.commit_title_match);
-    }
+    //don't required commit/pr to be equal or commit message to lint for single commit PR
+    // if (COMMIT_TITLE_MATCH && pullRequest.title !== commitMessageSubject) {
+    //   core.setFailed(actionMessage.fail.commit.commit_title_match);
+    // }
   } else {
     const titleReport = await lint(pullRequest.title, lintRules, {
       parserOpts,
