@@ -3,7 +3,7 @@ const { getActionConfig, getCommitSubject } = require("./utils.js");
 describe("getActionConfig", () => {
   beforeEach(() => {
     process.env.INPUT_COMMITTITLEMATCH = "false";
-    process.env.INPUT_IGNORECOMMITS = "false";
+    process.env.INPUT_IGNORECOMMITS = "true";
     process.env.INPUT_COMMITLINTRULESPATH = "./commitlint.rules.js";
     process.env.GITHUB_TOKEN = "asdf";
     process.env.GITHUB_WORKSPACE = "./";
@@ -12,7 +12,7 @@ describe("getActionConfig", () => {
   describe("when parsing action config booleans", () => {
     it.each([
       ['COMMIT_TITLE_MATCH', true],
-      ['IGNORE_COMMITS', false]]
+      ['IGNORE_COMMITS', true]]
     )("casts %s to boolean", (key, expected) => {
       const configValue = getActionConfig()[key];
       expect(configValue).toEqual(expected);

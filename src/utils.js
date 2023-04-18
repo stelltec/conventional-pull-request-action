@@ -1,6 +1,6 @@
 const getActionConfig = () => {
   let COMMIT_TITLE_MATCH = true;
-  let IGNORE_COMMITS = false;
+  let IGNORE_COMMITS = true;
   try {
     const ctmVal = JSON.parse(process.env.INPUT_COMMITTITLEMATCH.trim());
     const ignoreCommitsVal = JSON.parse(process.env.INPUT_IGNORECOMMITS.trim());
