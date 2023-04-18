@@ -1,5 +1,5 @@
 module.exports = {
-  COMMIT_TITLE_MATCH: true,
+  COMMIT_TITLE_MATCH: false,
   IGNORE_COMMITS: false,
   RULES_PATH: undefined,
   GITHUB_TOKEN: "asdf",

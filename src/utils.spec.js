@@ -2,7 +2,7 @@ const { getActionConfig, getCommitSubject } = require("./utils.js");
 
 describe("getActionConfig", () => {
   beforeEach(() => {
-    process.env.INPUT_COMMITTITLEMATCH = "true";
+    process.env.INPUT_COMMITTITLEMATCH = "false";
     process.env.INPUT_IGNORECOMMITS = "false";
     process.env.INPUT_COMMITLINTRULESPATH = "./commitlint.rules.js";
     process.env.GITHUB_TOKEN = "asdf";
