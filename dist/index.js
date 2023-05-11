@@ -36396,6 +36396,7 @@ const getLintRules = __nccwpck_require__(2608);
 async function lintPR() {
   const actionConfig = getActionConfig();
   const { GITHUB_TOKEN, COMMIT_TITLE_MATCH, IGNORE_COMMITS } = actionConfig;
+  console.log("ActionConfig", actionConfig)
 
   const client = github.getOctokit(GITHUB_TOKEN);
 
@@ -36426,7 +36427,6 @@ async function lintPR() {
   } = await parserPreset(null, null);
 
   if (!IGNORE_COMMITS && pullRequest.commits <= 1) {
-
     const {
       data: [{ commit }],
     } = await client.pulls.listCommits({
@@ -36438,7 +36438,9 @@ async function lintPR() {
 
     const commitMessageSubject = getCommitSubject(commit.message);
 
-    const commitReport = await lint(commitMessageSubject, lintRules, { parserOpts });
+    const commitReport = await lint(commitMessageSubject, lintRules, {
+      parserOpts,
+    });
 
     commitReport.warnings.forEach((warn) =>
       core.warning(`Commit message: ${warn.message}`)
@@ -36451,7 +36453,6 @@ async function lintPR() {
       core.setFailed(actionMessage.fail.commit.lint);
     }
 
-    //don't required commit/pr to be equal or commit message to lint for single commit PR
     // if (COMMIT_TITLE_MATCH && pullRequest.title !== commitMessageSubject) {
     //   core.setFailed(actionMessage.fail.commit.commit_title_match);
     // }
@@ -36520,7 +36521,7 @@ module.exports = async function getLintRules(actionConfig) {
 
 const getActionConfig = () => {
   let COMMIT_TITLE_MATCH = true;
-  let IGNORE_COMMITS = false;
+  let IGNORE_COMMITS = true;
   try {
     const ctmVal = JSON.parse(process.env.INPUT_COMMITTITLEMATCH.trim());
     const ignoreCommitsVal = JSON.parse(process.env.INPUT_IGNORECOMMITS.trim());
